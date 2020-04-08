@@ -35,6 +35,21 @@ public class Program2 {
         departmentDao.insert(newDepartment);
         System.out.println("Inserted! New id = "+ newDepartment.getId());
         
+        System.out.println("");
+        System.out.println("===== TEST 4: department update ========");
+        System.out.print("Digite o id que deseja editar: ");
+        resp = ler.nextInt();
+        department = departmentDao.findById(resp);
+        System.out.print("Digite o nome novo do departamento: ");
+        res = ler.next();
+        department.setName(res);
+        departmentDao.update(department);
+        
+       
+    
+       
+        
+        
     }
     
 }
