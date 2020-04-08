@@ -45,11 +45,12 @@ public class Program2 {
         department.setName(res);
         departmentDao.update(department);
         
-       
-    
-       
-        
-        
+        System.out.println("");
+        System.out.println("===== TEST 6: department delete ========");
+        System.out.print("Digite qual id deseja excluir: ");
+        resp = ler.nextInt();
+        departmentDao.deleteById(resp);
+        System.out.println("Delected completed");
     }
     
 }
