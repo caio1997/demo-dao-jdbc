@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.dao.DepartmentDao;
@@ -23,7 +24,28 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 
     @Override
     public void insert(Department obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PreparedStatement st = null;
+        try{
+            st = conn.prepareStatement("INSERT INTO department (Name) VALUES (?)",Statement.RETURN_GENERATED_KEYS);
+            st.setString(1, obj.getName());
+            int rows = st.executeUpdate();
+            if(rows > 0){
+                ResultSet rs = st.getGeneratedKeys();
+                if(rs.next()){
+                    int id = rs.getInt(1);
+                    obj.setId(id);
+                    DB.closeResultSet(rs);
+                }
+            }else{
+                throw new DbException("Nothing alterated!");
+            }
+        }
+       catch(SQLException e){
+           throw new DbException(e.getMessage());
+       }
+       finally{
+           DB.closeStatement(st);
+        }
     }
 
     @Override
