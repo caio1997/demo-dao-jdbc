@@ -10,13 +10,11 @@ public class Program {
     public static void main(String[] args) {
         Date data = new Date(System.currentTimeMillis());
         
-        Department dep = new Department(1, "Books");
-               
-        Seller seller = new Seller(1,"Caio","caio_mcoelho@hotmail.com",data,3000,dep);
+        SellerDao sellerDao = DaoFactory.createSellerDao();  
         
-        SellerDao selerDao = DaoFactory.createSellerDao();
+        Seller seller = sellerDao.findById(3);
         
-        System.out.println(dep);
+       
         System.out.println(seller);
     }
 }
