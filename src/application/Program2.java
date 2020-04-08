@@ -1,6 +1,7 @@
 package application;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Scanner;
 import model.dao.DaoFactory;
 import model.dao.DepartmentDao;
@@ -20,6 +21,11 @@ public class Program2 {
         System.out.println(department);
         System.out.println("");
         
+        System.out.println("===== TEST 3: seller findAll ========");
+        List<Department> list = departmentDao.findAll();
+        for (Department obj : list) {
+            System.out.println(obj);
+        }
     }
     
 }

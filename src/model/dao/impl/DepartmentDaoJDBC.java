@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import model.dao.DepartmentDao;
 import model.entities.Department;
@@ -47,8 +48,7 @@ public class DepartmentDaoJDBC implements DepartmentDao{
                Department obj = new Department();
                obj.setId(rs.getInt("Id"));
                obj.setName(rs.getString("Name"));
-               return obj;
-               
+               return obj; 
            }
            return null;
        }
@@ -63,7 +63,30 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 
     @Override
     public List<Department> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try{
+           st = conn.prepareStatement("SELECT * FROM department ORDER BY Name");
+           rs = st.executeQuery();
+           
+           List<Department> list = new ArrayList<>();
+           
+           while(rs.next()){
+               Department obj = new Department();
+               obj.setId(rs.getInt("Id"));
+               obj.setName(rs.getString("Name"));
+               list.add(obj);
+           }
+           return list;
+           
+        }
+        catch(SQLException e){
+            throw new DbException(e.getMessage());
+        }
+        finally{
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
    
 }
