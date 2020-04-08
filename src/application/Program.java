@@ -11,7 +11,7 @@ import model.entities.Seller;
 public class Program {
 
     public static void main(String[] args) {
-
+         Date data = new Date(System.currentTimeMillis());
         Scanner ler = new Scanner(System.in);
         SellerDao sellerDao = DaoFactory.createSellerDao();
         System.out.println("===== TEST 1: seller findById ========");
@@ -34,6 +34,11 @@ public class Program {
         for (Seller obj : list) {
             System.out.println(obj);
         }
-
+        
+        System.out.println("");
+        System.out.println("===== TEST 4: seller insert ========");
+        Seller newSeller = new Seller(null, "Caio", "caioomarinhocoelho@gmail.com", data, 5000, dep);
+        sellerDao.insert(newSeller);
+        System.out.println("Inserted! New id = "+ newSeller.getId());
     }
 }
